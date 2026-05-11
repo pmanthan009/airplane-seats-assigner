@@ -1,0 +1,63 @@
+# ==========================================
+# Java & Spring Boot Backend (backend/)
+# ==========================================
+# Compiled class files and archives
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# Maven build output folder
+backend/target/
+target/
+
+# Spring Boot specific files
+HELP.md
+
+# ==========================================
+# Vite & React Frontend (frontend/)
+# ==========================================
+# Dependencies
+**/node_modules/
+node_modules/
+
+# Production build output
+frontend/dist/
+dist/
+frontend/dist-ssr/
+
+# Local environment variables
+*.local
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==========================================
+# IDEs, Editors & OS Files
+# ==========================================
+# VS Code
+.vscode/
+*.code-workspace
+
+# IntelliJ IDEA / Eclipse
+.idea/
+*.iml
+*.iws
+*.classpath
+*.project
+*.settings/
+
+# macOS / Windows clutter
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
