@@ -5,6 +5,9 @@
  */
 
 package com.airline.system.model;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+
 public class Passenger extends OrderedData {
     public int passengerID = -1;
     public String lastName;

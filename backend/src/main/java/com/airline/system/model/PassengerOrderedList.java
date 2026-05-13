@@ -5,6 +5,10 @@
  */
 
 package com.airline.system.model;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+// Instruct Jackson to read private fields inside the ordered list natively
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class PassengerOrderedList extends AbstractOrderedList {
 
     /**

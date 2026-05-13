@@ -1,3 +1,5 @@
+package com.airline.system.dto;
+
 public class SeatUpdateBroadcast {
     private int flightNo;
     private int row;

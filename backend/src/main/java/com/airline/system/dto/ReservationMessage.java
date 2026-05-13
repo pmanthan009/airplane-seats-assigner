@@ -1,3 +1,5 @@
+package com.airline.system.dto;
+
 public class ReservationMessage {
     private int flightNo;
     private int row;

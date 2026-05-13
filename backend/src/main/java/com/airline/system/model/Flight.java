@@ -6,6 +6,8 @@
 
 package com.airline.system.model;
 import java.util.Random;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 
 public class Flight extends OrderedData {
     private int flightNo;

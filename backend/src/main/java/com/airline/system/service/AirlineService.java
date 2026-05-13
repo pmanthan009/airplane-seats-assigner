@@ -7,7 +7,7 @@ import java.io.IOException;
 
 @Service
 public class AirlineService {
-    
+
     private final AirlineSystem airlineSystem;
 
     public AirlineService() {
@@ -18,8 +18,9 @@ public class AirlineService {
     public void init() {
         try {
             airlineSystem.loadFlights("src/main/resources/flights.txt");
-            System.out.println("Flights loaded successfully into persistent memory.");
+            System.out.println("REST Backend Core Initialized: Flights mapped successfully.");
         } catch (IOException e) {
+            System.err.println("Critical initialization exception loading base configuration:");
             e.printStackTrace();
         }
     }

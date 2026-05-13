@@ -5,6 +5,9 @@
  */
 
 package com.airline.system.model;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+
 public class Seat {
     public final int row;   // absolute row number
     public final int index; // seat index in row

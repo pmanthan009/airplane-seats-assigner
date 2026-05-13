@@ -5,6 +5,9 @@
  */
 
 package com.airline.system.model;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+
 public class Section {
     private int rows;
     private int[] blocks;

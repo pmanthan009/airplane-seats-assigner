@@ -176,4 +176,13 @@ public class AirlineSystem {
     public void insertFlight(Flight f) {
         flights.insertOrdered(f);
     }
+
+    /**
+     * getAllFlights method
+     * Returns an array containing all loaded Flight objects sequentially.
+     * return type: Object[]
+     **/
+    public Object[] getAllFlights() {
+        return flights.toArray();
+    }
 }
