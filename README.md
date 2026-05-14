@@ -2,6 +2,8 @@
 
 A stateless, highly optimized Spring Boot RESTful backend designed to automate and manage real-time airline seat allocations according to preferences, continuous group placements, and manifest tracking.
 
+<img width="2880" height="2880" alt="20260514_030733" src="https://github.com/user-attachments/assets/741185ff-26bb-4297-83ec-d29d2cf3b08e" />
+
 ---
 
 ## Architecture Overview
