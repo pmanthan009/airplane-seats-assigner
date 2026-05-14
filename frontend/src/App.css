@@ -44,25 +44,15 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
   background-color: var(--bg-base);
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(240, 165, 0, 0.04) 0%, transparent 70%),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 39px,
-      rgba(255,255,255,0.015) 39px,
-      rgba(255,255,255,0.015) 40px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 39px,
-      rgba(255,255,255,0.015) 39px,
-      rgba(255,255,255,0.015) 40px
-    );
   font-family: var(--font-body);
   color: var(--text-primary);
   min-height: 100vh;
@@ -75,9 +65,10 @@ body {
 
 /* ─── ROOT LAYOUT ─── */
 .dashboard-root {
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 2rem 2.5rem 4rem;
+  width: 100%;
+  max-width: 100vw;
+  padding: 1.5rem 1.75rem 3rem;
+  overflow-x: hidden;
 }
 
 /* ─── HEADER ─── */
@@ -85,8 +76,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 1.75rem;
-  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-muted);
   position: relative;
 }
@@ -104,7 +95,7 @@ body {
 .app-header h1 {
   margin: 0 0 0.2rem;
   font-family: var(--font-display);
-  font-size: 2.1rem;
+  font-size: 2rem;
   letter-spacing: 0.12em;
   color: var(--text-primary);
   line-height: 1;
@@ -127,6 +118,7 @@ body {
   border: 1px solid var(--border-muted);
   border-radius: 100px;
   padding: 0.45rem 1rem;
+  flex-shrink: 0;
 }
 
 .status-dot {
@@ -137,12 +129,12 @@ body {
   animation: pulse-dot 2.5s ease-in-out infinite;
 }
 
-.status-dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); }
-.status-dot.offline { background: var(--danger); box-shadow: 0 0 8px var(--danger); animation: none; }
+.status-dot.online  { background: var(--success); box-shadow: 0 0 8px var(--success); }
+.status-dot.offline { background: var(--danger);  box-shadow: 0 0 8px var(--danger); animation: none; }
 
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.85); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
 }
 
 .status-label {
@@ -156,7 +148,7 @@ body {
 
 /* ─── NAV TABS ─── */
 .nav-section {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .nav-section-label {
@@ -167,33 +159,35 @@ body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   display: block;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 
 .nav-tabs {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
   overflow-x: auto;
   padding-bottom: 0.25rem;
+  max-width: 100%;
 }
 
 .nav-tabs::-webkit-scrollbar { height: 3px; }
 
 .tab-button {
-  padding: 0.5rem 1.25rem;
+  padding: 0.45rem 1rem;
   background: var(--surface-card);
   border: 1px solid var(--border-muted);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .tab-button::before {
@@ -205,11 +199,7 @@ body {
   transition: opacity 0.2s;
 }
 
-.tab-button:hover {
-  color: var(--accent);
-  border-color: var(--border-accent);
-}
-
+.tab-button:hover { color: var(--accent); border-color: var(--border-accent); }
 .tab-button:hover::before { opacity: 1; }
 
 .tab-button.active {
@@ -222,22 +212,31 @@ body {
 /* ─── CONTENT GRID ─── */
 .content-grid {
   display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 1.75rem;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 1.5rem;
   align-items: start;
+  width: 100%;
+  min-width: 0;
 }
 
-/* ─── BOOKING FORM (input-desk) ─── */
+/* This is the key — grid children default to min-width:auto which breaks containment */
+.content-grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* ─── BOOKING FORM ─── */
 .input-desk {
   background: var(--surface-card);
   border: 1px solid var(--border-muted);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   overflow: hidden;
+  animation: fadeIn 0.35s ease both;
 }
 
 .desk-header {
-  padding: 1.5rem 1.5rem 1.25rem;
+  padding: 1.25rem 1.5rem 1rem;
   border-bottom: 1px solid var(--border-muted);
   background: linear-gradient(135deg, var(--surface-elevated) 0%, var(--surface-card) 100%);
 }
@@ -245,48 +244,48 @@ body {
 .desk-header h3 {
   margin: 0 0 0.25rem;
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   letter-spacing: 0.1em;
   color: var(--text-primary);
 }
 
 .desk-header p {
   margin: 0;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-dim);
   font-family: var(--font-mono);
   letter-spacing: 0.05em;
 }
 
 .desk-body {
-  padding: 1.5rem;
+  padding: 1.25rem;
 }
 
 .field-group {
-  margin-bottom: 1.1rem;
+  margin-bottom: 1rem;
 }
 
 .field-group label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.63rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-dim);
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.4rem;
 }
 
 .field-group input,
 .field-group select {
   width: 100%;
-  padding: 0.65rem 0.85rem;
+  padding: 0.6rem 0.8rem;
   background: var(--bg-surface);
   border: 1px solid var(--border-muted);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
   -webkit-appearance: none;
@@ -313,12 +312,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
 }
 
 .roster-title {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.63rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -327,7 +326,7 @@ body {
 
 .roster-count {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.63rem;
   color: var(--accent);
   background: var(--accent-dim);
   border: 1px solid var(--border-accent);
@@ -340,25 +339,23 @@ body {
   background: var(--bg-surface);
   border: 1px solid var(--border-muted);
   border-radius: var(--radius-md);
-  padding: 1rem;
-  margin-bottom: 0.75rem;
+  padding: 0.85rem;
+  margin-bottom: 0.65rem;
   transition: border-color 0.2s;
 }
 
-.passenger-entry-card:hover {
-  border-color: rgba(240, 165, 0, 0.15);
-}
+.passenger-entry-card:hover { border-color: rgba(240, 165, 0, 0.15); }
 
 .pax-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
 }
 
 .pax-slot-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.63rem;
   font-weight: 700;
   color: var(--accent);
   letter-spacing: 0.1em;
@@ -371,7 +368,7 @@ body {
   color: var(--danger);
   cursor: pointer;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.63rem;
   letter-spacing: 0.05em;
   padding: 0.2rem 0.5rem;
   border-radius: var(--radius-sm);
@@ -382,31 +379,27 @@ body {
 .pax-remove-btn:hover { background: var(--danger-dim); }
 
 .pax-name-row {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
 .pax-name-row input { flex: 1; }
 
-.pax-detail-row {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.pax-detail-row input { flex: 1.5; }
+.pax-detail-row { display: grid; gap: 0.4rem; }
+.pax-detail-row input  { flex: 1.5; }
 .pax-detail-row select { flex: 1; }
 
 /* Buttons */
 .btn-primary {
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.75rem;
   background: var(--accent);
   color: #07090f;
   border: none;
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -433,18 +426,18 @@ body {
 
 .btn-secondary {
   width: 100%;
-  padding: 0.6rem;
+  padding: 0.55rem;
   background: transparent;
   color: var(--text-secondary);
   border: 1px dashed var(--border-muted);
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   transition: all 0.2s;
 }
 
@@ -458,25 +451,16 @@ body {
 .status-msg {
   margin-top: 1rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.05em;
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 1rem;
   border-radius: var(--radius-sm);
   border-left: 3px solid;
 }
 
-.status-msg.success {
-  color: var(--success);
-  background: var(--success-dim);
-  border-color: var(--success);
-}
-
-.status-msg.error {
-  color: var(--danger);
-  background: var(--danger-dim);
-  border-color: var(--danger);
-}
+.status-msg.success { color: var(--success); background: var(--success-dim); border-color: var(--success); }
+.status-msg.error   { color: var(--danger);  background: var(--danger-dim);  border-color: var(--danger); }
 
 /* ─── FLIGHT GRID ─── */
 .grid-container {
@@ -484,47 +468,57 @@ body {
   border: 1px solid var(--border-muted);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
+  animation: fadeIn 0.35s ease both;
+  display: flex;
+  flex-direction: column;
+  /* Contain itself — never push past the grid column */
+  min-width: 0;
+  width: 100%;
   overflow: hidden;
 }
 
 .grid-header {
-  padding: 1.5rem 2rem;
+  padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--border-muted);
   background: linear-gradient(135deg, var(--surface-elevated) 0%, var(--surface-card) 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .grid-header h2 {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   letter-spacing: 0.12em;
   color: var(--text-primary);
 }
 
 .grid-date-badge {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   color: var(--text-secondary);
   background: var(--bg-surface);
   border: 1px solid var(--border-muted);
   border-radius: var(--radius-sm);
-  padding: 0.35rem 0.75rem;
+  padding: 0.3rem 0.65rem;
   letter-spacing: 0.1em;
+  flex-shrink: 0;
 }
 
+/* Only this inner element scrolls sideways if a giant plane ever needs it */
 .grid-body {
-  padding: 2rem;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  flex: 1;
 }
 
 .section-wrapper {
-  margin-bottom: 2.5rem;
-  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid var(--border-muted);
-  position: relative;
 }
 
 .section-wrapper:last-child {
@@ -536,27 +530,27 @@ body {
 .section-title-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
 }
 
 .section-label {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   letter-spacing: 0.1em;
   color: var(--accent);
 }
 
 .section-meta-tag {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: var(--text-dim);
   background: var(--bg-surface);
   border: 1px solid var(--border-muted);
   border-radius: var(--radius-sm);
-  padding: 0.2rem 0.55rem;
+  padding: 0.18rem 0.5rem;
   text-transform: uppercase;
 }
 
@@ -564,55 +558,52 @@ body {
 .row-display, .row-Display {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 0.6rem;
-  padding: 0.3rem 0;
+  gap: 0.75rem;
+  margin-bottom: 0.45rem;
+  padding: 0.25rem 0.35rem;
   border-radius: var(--radius-sm);
   transition: background 0.15s;
 }
 
-.row-display:hover, .row-Display:hover {
-  background: var(--surface-elevated);
-}
+.row-display:hover, .row-Display:hover { background: var(--surface-elevated); }
 
 .row-tag {
-  width: 62px;
+  width: 52px;
   flex-shrink: 0;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--text-dim);
   text-transform: uppercase;
   text-align: right;
-  padding-right: 0.5rem;
+  padding-right: 0.4rem;
   border-right: 2px solid var(--border-muted);
 }
 
 .seats-row {
   display: flex;
-  gap: 1.25rem;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
 }
 
 .block-group {
   display: flex;
-  gap: 0.35rem;
+  gap: 0.25rem;
 }
 
-/* Aisle gap visual hint */
 .block-group + .block-group {
-  border-left: 2px dashed var(--border-muted);
-  padding-left: 1.25rem;
-  margin-left: -0.5rem;
+  border-left: 2px dashed rgba(255,255,255,0.06);
+  padding-left: 0.75rem;
 }
 
 .seat-box {
-  padding: 0.35rem 0.5rem;
+  padding: 0.3rem 0.35rem;
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  min-width: 50px;
+  min-width: 38px;
   text-align: center;
   border: 1px solid;
   letter-spacing: 0.03em;
@@ -653,9 +644,10 @@ body {
 .grid-legend {
   display: flex;
   gap: 1.25rem;
-  padding: 1rem 2rem;
+  padding: 0.85rem 1.5rem;
   border-top: 1px solid var(--border-muted);
   background: var(--bg-surface);
+  flex-shrink: 0;
 }
 
 .legend-item {
@@ -663,19 +655,20 @@ body {
   align-items: center;
   gap: 0.4rem;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   letter-spacing: 0.08em;
   color: var(--text-dim);
   text-transform: uppercase;
 }
 
 .legend-dot {
-  width: 8px; height: 8px;
+  width: 8px;
+  height: 8px;
   border-radius: 2px;
   flex-shrink: 0;
 }
 
-.legend-dot.avail { background: var(--success); }
+.legend-dot.avail  { background: var(--success); }
 .legend-dot.booked { background: var(--danger); }
 
 /* Empty state */
@@ -689,12 +682,7 @@ body {
   letter-spacing: 0.1em;
 }
 
-/* Fade-in animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-.input-desk, .grid-container {
-  animation: fadeIn 0.35s ease both;
 }

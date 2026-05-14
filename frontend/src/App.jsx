@@ -56,14 +56,14 @@ export default function App() {
     <div className="dashboard-root">
       <header className="app-header">
         <div>
-          <h1>Airline Operations Command</h1>
+          <h1>Airline Seating Tool</h1>
           <span className="subtitle">// Stateless API Desk Interface</span>
         </div>
         
         <div className="status-badge">
           <span className={`status-dot ${status.error ? 'offline' : 'online'}`} />
           <span className="status-label">
-            {status.error ? 'Offline' : 'API Connection Verified'}
+            {status.error ? 'Offline' : 'Server Connection'}
           </span>
         </div>
       </header>
