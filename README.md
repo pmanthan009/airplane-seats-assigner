@@ -129,3 +129,8 @@ mvn spring-boot:run
 ```
 
 3. Verify Server Binding: The underlying instance auto-initializes embedded runtime ports native to http://localhost:8080. Polling routes return standard cross-origin enabled mapping structures instantly.
+
+## Next Steps
+
+* [] Add funtionality to upload flight data (flight.txt) and load flights.
+* [] Support uploading passenger data file (passengers.txt) to auto-assign all the passengers to appropriate flights.
