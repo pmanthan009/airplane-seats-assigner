@@ -132,5 +132,5 @@ mvn spring-boot:run
 
 ## Next Steps
 
-* [] Add funtionality to upload flight data (flight.txt) and load flights.
-* [] Support uploading passenger data file (passengers.txt) to auto-assign all the passengers to appropriate flights.
+* [ ] Add funtionality to upload flight data (flight.txt) and load flights.
+* [ ] Support uploading passenger data file (passengers.txt) to auto-assign all the passengers to appropriate flights.
